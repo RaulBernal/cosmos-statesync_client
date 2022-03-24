@@ -34,6 +34,7 @@ Read carefully the instructions displayed at screen when you run it:
     ```
     sudo mv .bcnad /usr/local/bin/
     ```
+> At this point you have another alternative, use [Cosmovisor](https://github.com/BitCannaGlobal/bcna/blob/main/2.3.cosmovisor.md), check it or continue.
 4. Setup `bcnad` systemd service (copy and paste all to create the file service):
     ```
     cd $HOME
