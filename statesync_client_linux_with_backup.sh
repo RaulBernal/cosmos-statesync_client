@@ -36,6 +36,7 @@ then
   if [ -d ~/.bcna ];
   then
     echo "There is a BCNA folder there... taking a backup and moving to .old_bcna"
+    rm -rf .bcna/data-backup*
     tar cvfz bcna_folder_backup_$DATE_BACKUP.tgz --exclude=".bcna/data/cs.wal" --exclude=".bcna/data/application.db" --exclude=".bcna/data/blockstore.db" --exclude=".bcna/data/evidence.db" --exclude=".bcna/data/snapshots" --exclude=".bcna/data/state.db"   --exclude=".bcna/data/tx_index.db" .bcna/*
     if [ -d ~/.old_bcna ];
 
