@@ -10,9 +10,10 @@
 # Let's check if JQ tool is installed
 FILE=$(which jq)
  if [ -f "$FILE" ]; then
- echo "JQ is present"
+   echo "JQ is present"
  else
- echo "$FILE JQ tool does not exist, install with: sudo apt install jq"
+   echo "$FILE JQ tool does not exist, install with: sudo apt install jq"
+   exit 1
  fi
 
 set -e
