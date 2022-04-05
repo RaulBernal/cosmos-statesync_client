@@ -41,15 +41,15 @@ then
   rm -rf $HOME/.bcnad/config/genesis.json #deletes the default created genesis
   curl -s $GENESIS > $HOME/.bcna/config/genesis.json
   
-  NODE1_IP="206.189.9.95"
+  NODE1_IP="65.108.103.215"
   RPC1="http://$NODE1_IP"
-  P2P_PORT1=26656
-  RPC_PORT1=26657
+  P2P_PORT1=36656
+  RPC_PORT1=36657
 
-  NODE2_IP="159.65.198.245"
+  NODE2_IP="135.181.176.55"
   RPC2="http://$NODE2_IP"
-  RPC_PORT2=26657
-  P2P_PORT2=26656
+  RPC_PORT2=36657
+  P2P_PORT2=36656
 
   #If you want to use a third StateSync Server... 
   #DOMAIN_3=seed1.bitcanna.io     # If you want to use domain names 
