@@ -112,6 +112,5 @@ then
   echo ##################################################################  
   echo  Run again with: ./bcnad start
   echo ##################################################################
-  echo If your node is synced considerate to create a service file. Be careful, your backup file is not crypted!
-  echo If process was sucessful you can delete .old_bcna
+  echo If your node is synced considerate to create a service file. 
 fi
