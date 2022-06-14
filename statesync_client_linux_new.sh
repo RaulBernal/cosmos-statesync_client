@@ -19,9 +19,12 @@ FILE=$(which jq)
 set -e
 
 # Change for your custom chain
+MONIKER="New_peer"
 BINARY="https://github.com/BitCannaGlobal/bcna/releases/download/v.1.3.1/bcnad"
-GENESIS="https://raw.githubusercontent.com/BitCannaGlobal/bcna/main/genesis.json"
+GENESIS="https://raw.githubusercontent.com/BitCannaGlobal/testnet-bcna-cosmos/main/instructions/bitcanna-dev-4/genesis.json"
 APP="BCNA: ~/.bcna"
+echo ".....DEVNET-4 use only........"
+echo "=============================="
 echo "Welcome to the StateSync script. This script will download the last binary and it will sync the last state."
 echo "DON'T USE WITH A EXISTENT peer/validator config will be erased."
 echo "You should have a crypted backup of your wallet keys, your node keys and your validator keys." 
@@ -49,19 +52,19 @@ then
   fi
   wget -nc $BINARY
   chmod +x bcnad
-  ./bcnad init New_peer --chain-id bitcanna-1
+  ./bcnad init $MONIKER --chain-id bitcanna-dev-4
   rm -rf $HOME/.bcnad/config/genesis.json #deletes the default created genesis
   curl -s $GENESIS > $HOME/.bcna/config/genesis.json
   
-  NODE1_IP="65.108.103.215"
+  NODE1_IP="188.166.126.81"
   RPC1="http://$NODE1_IP"
-  P2P_PORT1=36656
-  RPC_PORT1=36657
+  P2P_PORT1=26656
+  RPC_PORT1=26657
 
-  NODE2_IP="135.181.176.55"
+  NODE2_IP="194.242.57.128"
   RPC2="http://$NODE2_IP"
-  RPC_PORT2=36657
-  P2P_PORT2=36656
+  RPC_PORT2=26657
+  P2P_PORT2=26656
 
   #If you want to use a third StateSync Server... 
   #DOMAIN_3=seed1.bitcanna.io     # If you want to use domain names 
@@ -95,14 +98,14 @@ then
   s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
   s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"| ; \
   s|^(persistent_peers[[:space:]]+=[[:space:]]+).*$|\1\"${NODE1_ID}@${NODE1_IP}:${P2P_PORT1},${NODE2_ID}@${NODE2_IP}:${P2P_PORT2}\"| ; \
-  s|^(seeds[[:space:]]+=[[:space:]]+).*$|\1\"d6aa4c9f3ccecb0cc52109a95962b4618d69dd3f@seed1.bitcanna.io:26656,23671067d0fd40aec523290585c7d8e91034a771@seed2.bitcanna.io:26656\"|" $HOME/.bcna/config/config.toml
+  s|^(seeds[[:space:]]+=[[:space:]]+).*$|\1\"3fde4e73ef3fba3418dde89bffe0057508fc5706@144.91.127.5:26656,4ccc6689a4d2590f6b60e34a3a3e70e0888bbcc0@144.91.89.66:26656\"|" $HOME/.bcna/config/config.toml
 
 
   sed -E -i -s 's/minimum-gas-prices = \".*\"/minimum-gas-prices = \"0.001ubcna\"/' $HOME/.bcna/config/app.toml
 
   ./bcnad unsafe-reset-all
   echo ##################################################################
-  echo  "PLEASE HIT CTRL+C WHEN THE CHAIN IS SYNCED, Wait the last block"
+  echo  "PLEASE HIT CTRL+C WHEN THE CHAIN IS SYNCED, Wait for the last block"
   echo ##################################################################
   sleep 5
   ./bcnad start
