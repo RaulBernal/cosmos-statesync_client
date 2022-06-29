@@ -30,7 +30,7 @@ then
   echo "\nClearing the data folder & P2P Address Book"
   bcnad unsafe-reset-all || cosmovisor unsafe-reset-all
 
-  NODE1_IP="65.108.103.215"
+  NODE1_IP="178.62.236.228"
   RPC1="http://$NODE1_IP"
   P2P_PORT1=36656
   RPC_PORT1=36657
