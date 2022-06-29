@@ -41,7 +41,7 @@ then
   rm -rf $HOME/.bcnad/config/genesis.json #deletes the default created genesis
   curl -s $GENESIS > $HOME/.bcna/config/genesis.json
   
-  NODE1_IP="178.62.236.228"
+  NODE1_IP="176.9.139.74"
   RPC1="http://$NODE1_IP"
   P2P_PORT1=36656
   RPC_PORT1=36657
