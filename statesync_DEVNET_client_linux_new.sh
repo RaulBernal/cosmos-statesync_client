@@ -19,7 +19,7 @@ FILE=$(which jq)
 set -e
 
 # Change for your custom chain
-BINARY="https://github.com/BitCannaGlobal/bcna/releases/download/v1.4.4-pre/bcnad"
+BINARY="https://github.com/BitCannaGlobal/bcna/releases/download/v1.4.5-pre/bcna_linux_amd64.tar.gz"
 GENESIS="https://raw.githubusercontent.com/BitCannaGlobal/testnet-bcna-cosmos/main/instructions/bitcanna-dev-4/genesis.json"
 APP="BCNA: ~/.bcna"
 echo ".....DEVNET-4 use only........"
@@ -50,7 +50,10 @@ then
     rm -f bcnad #deletes a previous downloaded binary
   fi
   wget -nc $BINARY
-  chmod +x bcnad
+  rm -f ./bcnad #delete old file if exist
+  tar zxvf  bcna_linux_amd64.tar.gz
+  rm bcna_linux_amd64.tar.gz
+  chmod +x bcnad && ./bcnad version
   ./bcnad init New_peer --chain-id bitcanna-devnet-4
   rm -rf $HOME/.bcnad/config/genesis.json #deletes the default created genesis
   curl -s $GENESIS > $HOME/.bcna/config/genesis.json
