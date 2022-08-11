@@ -19,7 +19,7 @@ FILE=$(which jq)
 set -e
 
 # Change for your custom chain
-BINARY="https://github.com/BitCannaGlobal/bcna/releases/download/v1.4.4-pre/bcnad"
+BINARY="https://github.com/BitCannaGlobal/bcna/releases/download/v1.4.5-pre/bcna_linux_amd64.tar.gz"
 GENESIS="https://raw.githubusercontent.com/BitCannaGlobal/testnet-bcna-cosmos/main/instructions/bitcanna-dev-4/genesis.json"
 APP="BCNA: ~/.bcna"
 echo ".....DEVNET-4 use only........"
@@ -33,23 +33,21 @@ read -p "$APP folder, your keys and config WILL BE ERASED, it's ok if you want t
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
   # BitCanna State Sync client config.
-  echo ##################################################
-  echo " Making a backup from .bcna config files if exist"
-  echo ##################################################
-  cd ~
+  echo ###########################################
+  echo "     Starting StateSync process..."
+  echo ###########################################
   if [ -d ~/.bcna ];
   then
-    echo "There is a BCNA folder there... if you want sync the data in an existent peer/validator try the script: statesync_linux_with_backup.sh"
+    echo "There is a BCNA folder there... if you want sync the data in an existent peer/validator try the script: statesync_linux_existising.sh"
     exit 1
   else
       echo "New installation...."
   fi
-
-  if [ -f ~/bcnad ];
-   then
-    rm -f bcnad #deletes a previous downloaded binary
-  fi
+  rm -f ./bcnad #deletes a previous downloaded binary
+  rm -f bcna_linux_amd64.tar.gz #delete old file if exist
   wget -nc $BINARY
+  tar zxvf  bcna_linux_amd64.tar.gz
+  rm bcna_linux_amd64.tar.gz  
   chmod +x bcnad
   ./bcnad init New_peer --chain-id bitcanna-devnet-4
   rm -rf $HOME/.bcnad/config/genesis.json #deletes the default created genesis
