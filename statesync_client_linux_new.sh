@@ -19,7 +19,7 @@ FILE=$(which jq)
 set -e
 
 # Change for your custom chain
-BINARY="https://github.com/BitCannaGlobal/bcna/releases/download/v.1.3.1/bcnad"
+BINARY="https://github.com/BitCannaGlobal/bcna/releases/download/v1.4.1/bcna_linux_amd64.tar.gz"
 GENESIS="https://raw.githubusercontent.com/BitCannaGlobal/bcna/main/genesis.json"
 APP="BCNA: ~/.bcna"
 echo "Welcome to the StateSync script. This script will download the last binary and it will sync the last state."
@@ -31,23 +31,22 @@ read -p "$APP folder, your keys and config WILL BE ERASED, it's ok if you want t
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
   # BitCanna State Sync client config.
-  echo ##################################################
-  echo " Making a backup from .bcna config files if exist"
-  echo ##################################################
+  echo ###########################################
+  echo "     Starting StateSync process..."
+  echo ###########################################
   cd ~
   if [ -d ~/.bcna ];
   then
-    echo "There is a BCNA folder there... if you want sync the data in an existent peer/validator try the script: statesync_linux_with_backup.sh"
+    echo "There is a BCNA folder there... if you want sync the data in an existent peer/validator try the script: statesync_linux_existising.sh"
     exit 1
   else
       echo "New installation...."
   fi
-
-  if [ -f ~/bcnad ];
-   then
-    rm -f bcnad #deletes a previous downloaded binary
-  fi
+  rm -f bcnad #deletes a previous downloaded binary
+  rm -f bcna_linux_amd64.tar.gz
   wget -nc $BINARY
+  tar zxvf bcna_linux_amd64.tar.gz
+  rm bcna_linux_amd64.tar.gz
   chmod +x bcnad
   ./bcnad init New_peer --chain-id bitcanna-1
   rm -rf $HOME/.bcnad/config/genesis.json #deletes the default created genesis
@@ -101,7 +100,7 @@ then
 
   sed -E -i -s 's/minimum-gas-prices = \".*\"/minimum-gas-prices = \"0.001ubcna\"/' $HOME/.bcna/config/app.toml
 
-  ./bcnad unsafe-reset-all
+  ./bcnad tendermint unsafe-reset-all --home $HOME/.bcna
   echo ##################################################################
   echo  "PLEASE HIT CTRL+C WHEN THE CHAIN IS SYNCED, Wait the last block"
   echo ##################################################################
