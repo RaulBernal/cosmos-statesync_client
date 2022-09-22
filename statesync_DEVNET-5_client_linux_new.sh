@@ -58,7 +58,7 @@ then
   P2P_PORT1=26656
   RPC_PORT1=26657
 
-  NODE2_IP="212.227.151.143"
+  NODE2_IP="212.227.151.106"
   RPC2="http://$NODE2_IP"
   RPC_PORT2=26657
   P2P_PORT2=26656
@@ -94,9 +94,7 @@ then
   s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"http://$NODE1_IP:$RPC_PORT1,http://$NODE2_IP:$RPC_PORT2\"| ; \
   s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
   s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"| ; \
-  s|^(persistent_peers[[:space:]]+=[[:space:]]+).*$|\1\"${NODE1_ID}@${NODE1_IP}:${P2P_PORT1},${NODE2_ID}@${NODE2_IP}:${P2P_PORT2}\"| ; \
-  s|^(seeds[[:space:]]+=[[:space:]]+).*$|\1\"${NODE1_ID}@${NODE1_IP}:${P2P_PORT1},${NODE2_ID}@${NODE2_IP}:${P2P_PORT2}\"|" $HOME/.bcna/config/config.toml
-
+  s|^(persistent_peers[[:space:]]+=[[:space:]]+).*$|\1\"${NODE1_ID}@${NODE1_IP}:${P2P_PORT1},${NODE2_ID}@${NODE2_IP}:${P2P_PORT2}\"|"  $HOME/.bcna/config/config.toml ; \
 
   sed -E -i -s 's/minimum-gas-prices = \".*\"/minimum-gas-prices = \"0.001ubcna\"/' $HOME/.bcna/config/app.toml
 
@@ -105,6 +103,7 @@ then
   echo  "PLEASE HIT CTRL+C WHEN THE CHAIN IS SYNCED, Wait the last block"
   echo ##################################################################
   sleep 5
+  ./bcnad config chain-id bitcanna-dev-5
   ./bcnad start
   sed -E -i 's/enable = true/enable = false/' $HOME/.bcna/config/config.toml
   echo ##################################################################  
