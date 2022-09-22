@@ -2,7 +2,7 @@
 # Based on the work of Joe (Chorus-One) for Microtick - https://github.com/microtick/bounties/tree/main/statesync
 # You need config in two peers (avoid seed servers) this values in app.toml:
 #     [state-sync]
-#     snapshot-interval = 1000
+#     snapshot-interval = 1000. ; 10 FOR DEVNET-5 TESTNET 
 #     snapshot-keep-recent = 10
 # Pruning should be fine tuned also, for this testings is set to nothing
 #     pruning = "nothing"
@@ -70,7 +70,7 @@ then
   #RPC_PORT3=26657
   #P2P_PORT3=26656
 
-  INTERVAL=1000
+  INTERVAL=10
 
   LATEST_HEIGHT=$(curl -s $RPC1:$RPC_PORT1/block | jq -r .result.block.header.height);
   BLOCK_HEIGHT=$((($(($LATEST_HEIGHT / $INTERVAL)) -10) * $INTERVAL)); #Mark addition
