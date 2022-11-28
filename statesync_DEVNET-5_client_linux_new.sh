@@ -97,6 +97,7 @@ then
   s|^(persistent_peers[[:space:]]+=[[:space:]]+).*$|\1\"${NODE1_ID}@${NODE1_IP}:${P2P_PORT1},${NODE2_ID}@${NODE2_IP}:${P2P_PORT2}\"|"  $HOME/.bcna/config/config.toml ; \
 
   sed -E -i -s 's/minimum-gas-prices = \".*\"/minimum-gas-prices = \"0.001ubcna\"/' $HOME/.bcna/config/app.toml
+  sed -E -i -s  's/snapshot-interval = 0/snapshot-interval = 10000/' $HOME/.bcna/config/app.toml
 
   ./bcnad tendermint unsafe-reset-all --home $HOME/.bcna
   echo ##################################################################
