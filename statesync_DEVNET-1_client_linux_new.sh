@@ -2,7 +2,7 @@
 # Based on the work of Joe (Chorus-One) for Microtick - https://github.com/microtick/bounties/tree/main/statesync
 # You need config in two peers (avoid seed servers) this values in app.toml:
 #     [state-sync]
-#     snapshot-interval = 1000. ; 10 FOR DEVNET-5 TESTNET 
+#     snapshot-interval = 1000. ; 10 FOR DEVNET-1 TESTNET 
 #     snapshot-keep-recent = 10
 # Pruning should be fine tuned also, for this testings is set to nothing
 #     pruning = "nothing"
@@ -20,9 +20,9 @@ set -e
 
 # Change for your custom chain
 BINARY="https://github.com/BitCannaGlobal/bcna/releases/download/v1.5.3/bcna_linux_amd64.tar.gz"
-GENESIS="https://raw.githubusercontent.com/BitCannaGlobal/testnet-bcna-cosmos/main/instructions/bitcanna-dev-5/genesis.json"
+GENESIS="https://raw.githubusercontent.com/BitCannaGlobal/bcna/main/devnets/bitcanna-dev-1/genesis.json"
 APP="BCNA: ~/.bcna"
-echo ".....DEVNET-5 use only........"
+echo ".....DEVNET-1 use only........"
 echo "=============================="
 echo "Welcome to the StateSync script. This script will download the last binary and it will sync the last state."
 echo "DON'T USE WITH A EXISTENT peer/validator config will be erased."
@@ -97,14 +97,14 @@ then
   s|^(persistent_peers[[:space:]]+=[[:space:]]+).*$|\1\"${NODE1_ID}@${NODE1_IP}:${P2P_PORT1},${NODE2_ID}@${NODE2_IP}:${P2P_PORT2}\"|"  $HOME/.bcna/config/config.toml ; \
 
   sed -E -i -s 's/minimum-gas-prices = \".*\"/minimum-gas-prices = \"0.001ubcna\"/' $HOME/.bcna/config/app.toml
-  sed -E -i -s  's/snapshot-interval = 0/snapshot-interval = 10000/' $HOME/.bcna/config/app.toml
+  sed -E -i -s  's/snapshot-interval = 0/snapshot-interval = 1000/' $HOME/.bcna/config/app.toml
 
   ./bcnad tendermint unsafe-reset-all --home $HOME/.bcna
   echo ##################################################################
   echo  "PLEASE HIT CTRL+C WHEN THE CHAIN IS SYNCED, Wait the last block"
   echo ##################################################################
   sleep 5
-  ./bcnad config chain-id bitcanna-dev-5
+  ./bcnad config chain-id bitcanna-dev-1
   ./bcnad start
   sed -E -i 's/enable = true/enable = false/' $HOME/.bcna/config/config.toml
   echo ##################################################################  
