@@ -49,7 +49,7 @@ then
   tar zxvf  bcna_linux_amd64.tar.gz
   rm bcna_linux_amd64.tar.gz  
   chmod +x bcnad
-  ./bcnad init New_peer --chain-id bitcanna-devnet-4
+  ./bcnad init New_peer --chain-id bitcanna-devnet-1
   rm -rf $HOME/.bcnad/config/genesis.json #deletes the default created genesis
   curl -s $GENESIS > $HOME/.bcna/config/genesis.json
   
