@@ -28,7 +28,7 @@ read -p "ATTENTION! This script will clear the data folder (unsafe-reset-all) & 
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
   echo "\nClearing the data folder & P2P Address Book"
-  bcnad tendermint unsafe-reset-all --home $HOME/.bcna || cosmovisor tendermint unsafe-reset-all --home $HOME/.bcna
+  bcnad tendermint unsafe-reset-all --keep-addr-book --home $HOME/.bcna || cosmovisor tendermint unsafe-reset-all --keep-addr-book --home $HOME/.bcna
 
   NODE1_IP="161.97.150.65"
   RPC1="http://$NODE1_IP"
